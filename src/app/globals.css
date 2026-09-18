@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-navy: #0b2545;
+  --color-brand-amber: #e09f3e;
+  --color-brand-slate: #1f2937;
+  --color-brand-light: #f8f9fa;
+  --color-brand-mist: #eef1f4;
+  --color-brand-stone: #c5b8a5;
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-montserrat);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-brand-light);
+  color: var(--color-brand-slate);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand-amber) 45%, white);
+  color: var(--color-brand-navy);
+}
+
+.font-heading {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* Soft reveal for photography-first sections */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fade-up 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: none;
+  }
+}
+
+/* Sticky mobile CTA clearance */
+.pb-mobile-cta {
+  padding-bottom: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .pb-mobile-cta {
+    padding-bottom: 0;
+  }
+}
