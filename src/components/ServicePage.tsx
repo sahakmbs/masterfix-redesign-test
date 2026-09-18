@@ -1,131 +1,159 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { Container, Eyebrow, SectionHeading } from "@/components/Section";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { Button } from "@/components/ui/Button";
 import type { Service } from "@/lib/site";
 import { site } from "@/lib/site";
 
 export function ServicePageView({ service }: { service: Service }) {
   return (
     <>
-      <section className="relative min-h-[60vh] overflow-hidden bg-brand-navy text-white">
-        <Image
-          src={service.heroImage}
-          alt={service.name}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/70 to-brand-navy/40" />
-        <Container className="relative flex min-h-[60vh] flex-col justify-end pb-14 pt-24">
-          <Eyebrow>Service</Eyebrow>
-          <h1 className="mt-3 max-w-4xl font-heading text-4xl font-black uppercase tracking-tight md:text-5xl lg:text-6xl">
-            {service.name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/85">{service.headline}</p>
+      <section className="relative min-h-[72vh] overflow-hidden bg-ink text-parchment">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="ken-burns absolute inset-[-3%] h-[106%] w-[106%]">
+            <Image
+              src={service.heroImage}
+              alt={service.name}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-50"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/35" />
+        </div>
+        <Container className="relative flex min-h-[72vh] flex-col justify-end pb-16 pt-28">
+          <Reveal>
+            <Eyebrow light>Service · {service.shortName}</Eyebrow>
+            <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+              {service.name}
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg text-parchment/75">{service.headline}</p>
+          </Reveal>
         </Container>
       </section>
 
-      <section className="bg-white py-16 md:py-20">
-        <Container className="grid gap-12 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <p className="text-lg leading-relaxed text-brand-slate/85">{service.intro}</p>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              <div className="rounded-sm bg-brand-light p-5">
-                <h2 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-amber">
-                  Timeline (directional)
+      <section className="bg-paper py-16 md:py-24">
+        <Container className="grid gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-7">
+            <p className="font-display text-2xl leading-snug text-ink md:text-3xl">
+              {service.intro}
+            </p>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+              <div className="rounded-[2px] border border-ink/10 bg-parchment p-6">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-bronze">
+                  Timeline
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-brand-slate/80">
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
                   {service.timeline}
                 </p>
               </div>
-              <div className="rounded-sm bg-brand-light p-5">
-                <h2 className="font-heading text-sm font-bold uppercase tracking-wider text-brand-amber">
-                  Materials we work with
+              <div className="rounded-[2px] border border-ink/10 bg-parchment p-6">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-bronze">
+                  Materials
                 </h2>
-                <ul className="mt-2 space-y-1 text-sm text-brand-slate/80">
+                <ul className="mt-3 space-y-2 text-sm text-charcoal/75">
                   {service.materials.map((m) => (
-                    <li key={m}>• {m}</li>
+                    <li key={m} className="flex gap-2">
+                      <span className="text-bronze">·</span>
+                      {m}
+                    </li>
                   ))}
                 </ul>
               </div>
             </div>
-          </div>
-          <aside className="rounded-sm border border-brand-navy/10 bg-brand-light p-6">
-            <h2 className="font-heading text-lg font-extrabold text-brand-navy">
-              Cost drivers
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm text-brand-slate/80">
-              {service.costDrivers.map((c) => (
-                <li key={c} className="border-b border-brand-navy/5 pb-2">
-                  {c}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-brand-amber text-sm font-heading font-bold uppercase tracking-wide text-brand-navy"
-            >
-              Get an estimate
-            </Link>
-          </aside>
+          </Reveal>
+
+          <Reveal className="lg:col-span-5" delay={0.1}>
+            <aside className="h-full rounded-[2px] border border-ink/10 bg-ink p-7 text-parchment md:p-8">
+              <h2 className="font-display text-2xl">Cost drivers</h2>
+              <p className="mt-2 text-sm text-parchment/55">
+                What typically moves the number — discussed early, not after demo.
+              </p>
+              <ul className="mt-6 space-y-0">
+                {service.costDrivers.map((c) => (
+                  <li
+                    key={c}
+                    className="border-b border-white/10 py-3.5 text-sm text-parchment/80 last:border-0"
+                  >
+                    {c}
+                  </li>
+                ))}
+              </ul>
+              <Button href="/contact" variant="primary" className="mt-8 w-full">
+                Get an estimate
+              </Button>
+            </aside>
+          </Reveal>
         </Container>
       </section>
 
-      <section className="bg-brand-light py-16 md:py-20">
+      <section className="bg-parchment py-16 md:py-24">
         <Container>
-          <SectionHeading
-            eyebrow="Avoid these"
-            title="Common mistakes on this trade"
-          />
-          <ul className="mt-10 grid gap-5 md:grid-cols-3">
-            {service.mistakes.map((m) => (
-              <li
-                key={m.title}
-                className="rounded-sm border border-brand-navy/10 bg-white p-6"
-              >
-                <h3 className="font-heading text-base font-extrabold text-brand-navy">
-                  {m.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-brand-slate/75">
-                  {m.body}
-                </p>
-              </li>
+          <Reveal>
+            <SectionHeading
+              eyebrow="Avoid these"
+              title="Common mistakes on this trade"
+              body="The expensive lessons we see on other people's jobs — and refuse to repeat."
+            />
+          </Reveal>
+          <Stagger className="mt-12 grid gap-5 md:grid-cols-3" stagger={0.08}>
+            {service.mistakes.map((m, i) => (
+              <StaggerItem key={m.title}>
+                <article className="h-full rounded-[2px] border border-ink/10 bg-paper p-7">
+                  <span className="font-display text-3xl text-bronze/80">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 font-display text-xl text-ink">{m.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{m.body}</p>
+                </article>
+              </StaggerItem>
             ))}
-          </ul>
+          </Stagger>
         </Container>
       </section>
 
-      <section className="bg-white py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
-          <SectionHeading eyebrow="On site" title="How we typically execute" />
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal>
+            <SectionHeading
+              eyebrow="On site"
+              title="How we typically execute"
+            />
+          </Reveal>
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {service.process.map((p, i) => (
-              <li key={p.title} className="rounded-sm bg-brand-light p-5">
-                <span className="text-xs font-heading font-bold text-brand-amber">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-2 font-heading font-extrabold text-brand-navy">
-                  {p.title}
-                </h3>
-                <p className="mt-2 text-sm text-brand-slate/75">{p.body}</p>
-              </li>
+              <Reveal key={p.title} delay={i * 0.06}>
+                <li className="relative h-full overflow-hidden rounded-[2px] bg-parchment p-6">
+                  <span className="absolute -right-2 -top-4 font-display text-7xl text-ink/[0.04]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-bronze">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 font-display text-xl text-ink">{p.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{p.body}</p>
+                </li>
+              </Reveal>
             ))}
           </ol>
         </Container>
       </section>
 
-      <section className="bg-brand-light py-16 md:py-20">
+      <section className="bg-parchment-deep py-16 md:py-24">
         <Container>
-          <SectionHeading
-            eyebrow="Gallery"
-            title={`${service.shortName} project photography`}
-            body="Real MasterFix job-site photos — not stock."
-          />
+          <Reveal>
+            <SectionHeading
+              eyebrow="Gallery"
+              title={`${service.shortName} project photography`}
+              body="Real MasterFix job-site photos — tap to expand."
+            />
+          </Reveal>
           <div className="mt-10">
             <ProjectGallery
               initialTrade={service.slug}
+              showFilters={false}
               images={service.images.map((src) => ({
                 src,
                 trade: service.slug,
@@ -136,29 +164,23 @@ export function ServicePageView({ service }: { service: Service }) {
         </Container>
       </section>
 
-      <section className="bg-brand-navy py-16 text-white">
-        <Container className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <section className="bg-ink py-16 text-parchment md:py-20">
+        <Container className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <h2 className="font-heading text-2xl font-extrabold md:text-3xl">
+            <h2 className="font-display text-3xl md:text-4xl">
               Ready to discuss {service.shortName.toLowerCase()}?
             </h2>
-            <p className="mt-2 text-white/70">
+            <p className="mt-3 text-parchment/60">
               Call {site.phone} or start a structured estimate request.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <a
-              href={site.phoneHref}
-              className="inline-flex min-h-12 items-center rounded-sm border border-white/30 px-5 text-sm font-heading font-bold uppercase tracking-wide"
-            >
+            <Button href={site.phoneHref} variant="ghost">
               Call now
-            </a>
-            <Link
-              href="/contact"
-              className="inline-flex min-h-12 items-center rounded-sm bg-brand-amber px-5 text-sm font-heading font-bold uppercase tracking-wide text-brand-navy"
-            >
+            </Button>
+            <Button href="/contact" variant="primary">
               Start your project
-            </Link>
+            </Button>
           </div>
         </Container>
       </section>

@@ -1,100 +1,166 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Eyebrow, SectionHeading } from "@/components/Section";
-import { processSteps, services, site } from "@/lib/site";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { Button } from "@/components/ui/Button";
+import { TradeMarquee } from "@/components/ui/Marquee";
+import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { services, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-[88vh] overflow-hidden bg-brand-navy text-white">
-        <Image
-          src="/images/front.webp"
-          alt="Seattle MasterFix project exterior"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-55"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/35" />
-        <Container className="relative flex min-h-[88vh] flex-col justify-end pb-16 pt-28 md:justify-center md:pb-24">
-          <div className="max-w-3xl reveal">
-            <Eyebrow>{site.name}</Eyebrow>
-            <h1 className="mt-4 font-heading text-4xl font-black uppercase leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-              {site.tagline}
+      {/* Cinematic hero */}
+      <section className="relative min-h-[100svh] overflow-hidden bg-ink text-parchment">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="ken-burns absolute inset-[-4%] h-[108%] w-[108%]">
+            <Image
+              src="/images/front.webp"
+              alt="Seattle MasterFix project exterior"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-55"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+        </div>
+
+        <Container className="relative flex min-h-[100svh] flex-col justify-end pb-20 pt-32 md:justify-center md:pb-28">
+          <Reveal className="max-w-4xl">
+            <Eyebrow light>King County · PNW craft</Eyebrow>
+            <h1 className="mt-6 font-display text-[2.75rem] leading-[0.98] tracking-tight text-parchment sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+              Built on trust.
+              <br />
+              <span className="text-bronze-light">Executed with precision.</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-              {site.description}
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-parchment/75 md:text-lg">
+              High-performance contracting across King County — from weather-tight exteriors to
+              meticulous interior finishes. A crew that shows up for the rain, the schedule, and
+              the details you notice every day.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex min-h-12 items-center rounded-sm bg-brand-amber px-6 text-sm font-heading font-bold uppercase tracking-wide text-brand-navy"
-              >
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Button href="/contact" variant="primary">
                 Request an estimate
-              </Link>
-              <Link
-                href="/projects"
-                className="inline-flex min-h-12 items-center rounded-sm border border-white/40 px-6 text-sm font-heading font-bold uppercase tracking-wide text-white hover:bg-white/10"
-              >
+              </Button>
+              <Button href="/projects" variant="ghost">
                 View projects
-              </Link>
+              </Button>
             </div>
-            <p className="mt-8 text-xs uppercase tracking-[0.18em] text-white/55">
+            <p className="mt-10 text-[11px] uppercase tracking-[0.2em] text-parchment/45">
               WA #{site.license} · UBI {site.ubi} · {site.credentials}
             </p>
-          </div>
+          </Reveal>
         </Container>
+
+        <div className="absolute bottom-8 right-5 hidden text-right md:block lg:right-10">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-parchment/40">Scroll</p>
+          <div className="ml-auto mt-2 h-12 w-px bg-gradient-to-b from-bronze to-transparent" />
+        </div>
       </section>
 
-      <section className="bg-white py-20 md:py-28">
+      <TradeMarquee
+        items={[
+          "Siding",
+          "Fencing",
+          "Tile",
+          "Laminate",
+          "Drywall",
+          "Paint",
+          "Rain-screen detailing",
+          "King County crews",
+        ]}
+      />
+
+      {/* Story strip */}
+      <section className="bg-paper py-20 md:py-28">
         <Container>
-          <SectionHeading
-            eyebrow="How we work"
-            title="A clear path from concept to completion"
-            body="MasterFix guides property owners and GCs through the entire build-out — with honest scopes and schedule control."
-          />
-          <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((step) => (
-              <li
-                key={step.step}
-                className="rounded-sm border border-brand-navy/10 bg-brand-light p-6"
-              >
-                <span className="font-heading text-sm font-bold text-brand-amber">
-                  {step.step}
+          <div className="grid items-end gap-10 lg:grid-cols-12">
+            <Reveal className="lg:col-span-7">
+              <Eyebrow>The crew</Eyebrow>
+              <h2 className="mt-4 font-display text-4xl leading-[1.05] text-ink md:text-5xl lg:text-6xl">
+                Remodeling that respects Pacific Northwest weather — and the people living through
+                the build.
+              </h2>
+            </Reveal>
+            <Reveal className="lg:col-span-5" delay={0.1}>
+              <p className="text-base leading-relaxed text-charcoal/70 md:text-lg">
+                We are a Seattle general contractor built around trade craft: plumb posts, flat
+                floors, watertight flashings, and clean handoff. No theater — just disciplined
+                sequences, clear communication, and finishes that hold up through wet winters.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-16 grid gap-px overflow-hidden rounded-[2px] bg-ink/10 sm:grid-cols-3">
+            {[
+              {
+                k: "01",
+                t: "Crew",
+                d: "Trade specialists who own their scopes — not a revolving cast of strangers.",
+              },
+              {
+                k: "02",
+                t: "Craft",
+                d: "Material boards, layout discipline, and the invisible work that keeps water out.",
+              },
+              {
+                k: "03",
+                t: "County",
+                d: "Serving property owners and GCs across King County with licensed, bonded crews.",
+              },
+            ].map((item) => (
+              <Reveal key={item.k} className="bg-paper p-7 md:p-9">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-bronze">
+                  {item.k}
                 </span>
-                <h3 className="mt-3 font-heading text-lg font-extrabold text-brand-navy">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-brand-slate/75">
-                  {step.body}
-                </p>
-              </li>
+                <h3 className="mt-3 font-display text-2xl text-ink">{item.t}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/65">{item.d}</p>
+              </Reveal>
             ))}
-          </ol>
-          <div className="mt-10">
-            <Link
-              href="/how-we-work"
-              className="text-sm font-heading font-bold uppercase tracking-wide text-brand-navy underline decoration-brand-amber decoration-2 underline-offset-4"
-            >
-              See the full process
-            </Link>
           </div>
         </Container>
       </section>
 
-      <section className="bg-brand-light py-20 md:py-28">
+      {/* Process */}
+      <section className="bg-parchment py-20 md:py-28">
         <Container>
-          <SectionHeading
-            eyebrow="Trades"
-            title="Real job-site photography by trade"
-            body="Tap any trade for its dedicated page — scope notes, timelines, cost drivers, and a gallery of our own work."
-          />
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal>
+            <SectionHeading
+              eyebrow="How we work"
+              title="A clear path from feasibility to closeout"
+              body="Honest scopes, permit coordination when needed, and schedule control — so punch lists actually close."
+            />
+          </Reveal>
+          <div className="mt-16 md:mt-20">
+            <ProcessTimeline />
+          </div>
+          <Reveal className="mt-14">
+            <Button href="/how-we-work" variant="secondary">
+              See the full process
+            </Button>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Service material boards */}
+      <section className="bg-ink py-20 text-parchment md:py-28">
+        <Container>
+          <Reveal>
+            <SectionHeading
+              light
+              eyebrow="Trades"
+              title="Material boards from the job site"
+              body="Tap any trade for scope notes, timelines, cost drivers, and our own photography — not stock."
+            />
+          </Reveal>
+          <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
             {services.map((s) => (
-              <li key={s.slug}>
+              <StaggerItem key={s.slug}>
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group block overflow-hidden rounded-sm bg-white shadow-sm ring-1 ring-brand-navy/5"
+                  className="group relative block overflow-hidden rounded-[2px] bg-ink-soft ring-1 ring-white/10"
                 >
                   <div className="relative aspect-[5/4] overflow-hidden">
                     <Image
@@ -102,67 +168,120 @@ export default function HomePage() {
                       alt={s.name}
                       fill
                       sizes="(max-width:768px) 100vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                      className="object-cover transition duration-700 ease-out group-hover:scale-[1.07]"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent opacity-90" />
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-heading text-lg font-extrabold text-brand-navy">
-                      {s.name}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-brand-slate/75">
+                  <div className="relative -mt-16 px-5 pb-6 pt-2">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-bronze-light">
+                      {s.shortName}
+                    </p>
+                    <h3 className="mt-2 font-display text-2xl text-parchment">{s.name}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-parchment/60">
                       {s.summary}
                     </p>
-                    <span className="mt-4 inline-block text-xs font-heading font-bold uppercase tracking-wider text-brand-amber">
-                      View service →
+                    <span className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-bronze-light transition group-hover:gap-3">
+                      Open board
+                      <span aria-hidden>→</span>
                     </span>
                   </div>
                 </Link>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </Stagger>
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-brand-navy py-20 text-white md:py-28">
+      {/* Featured photography strip */}
+      <section className="bg-parchment-deep py-16 md:py-20">
+        <Container>
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <Reveal>
+              <SectionHeading
+                eyebrow="Projects"
+                title="Work you can walk up to"
+                body="Filter by trade on the projects page — real MasterFix photography."
+              />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <Button href="/projects" variant="secondary">
+                Browse gallery
+              </Button>
+            </Reveal>
+          </div>
+          <Stagger className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4" stagger={0.06}>
+            {services.slice(0, 4).map((s) => (
+              <StaggerItem key={s.slug}>
+                <Link
+                  href={`/projects?trade=${s.slug}`}
+                  className="group relative block aspect-[3/4] overflow-hidden rounded-[2px]"
+                >
+                  <Image
+                    src={s.heroImage}
+                    alt={s.shortName}
+                    fill
+                    sizes="25vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-ink/25 transition group-hover:bg-ink/40" />
+                  <span className="absolute bottom-4 left-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-parchment">
+                    {s.shortName}
+                  </span>
+                </Link>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </Container>
+      </section>
+
+      {/* CTA band */}
+      <section className="relative overflow-hidden bg-ink py-20 text-parchment md:py-28">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(ellipse_at_center,rgba(196,137,58,0.18),transparent_65%)]"
+        />
         <Container className="relative">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <Reveal>
               <SectionHeading
                 light
-                eyebrow="King County"
-                title="High-performance contracting without the theater"
-                body="We combine commercial construction discipline with finish-level craftsmanship — for exteriors that shed water and interiors that hold up to daily use."
+                eyebrow="Ready when you are"
+                title="Start with a conversation — not a hard sell"
+                body="Tell us about the property, the weather constraints, and the finish you want. We will answer with an honest scope."
               />
-              <ul className="mt-8 space-y-3 text-sm text-white/80">
-                <li>• Licensed, bonded, and fully insured in Washington</li>
-                <li>• Serving property owners and general contractors</li>
-                <li>• Clear communication from feasibility through closeout</li>
+              <ul className="mt-8 space-y-3 text-sm text-parchment/70">
+                <li className="flex gap-3">
+                  <span className="text-bronze">—</span>
+                  Licensed, bonded, and fully insured in Washington
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-bronze">—</span>
+                  Property owners and general contractors welcome
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-bronze">—</span>
+                  Clear communication from feasibility through closeout
+                </li>
               </ul>
-            </div>
-            <div className="rounded-sm border border-white/15 bg-white/5 p-8 backdrop-blur">
-              <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand-amber">
-                Ready to start
-              </p>
-              <p className="mt-4 text-2xl font-heading font-extrabold">
-                Request a project estimate or book a consultation.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/contact"
-                  className="inline-flex min-h-12 items-center rounded-sm bg-brand-amber px-5 text-sm font-heading font-bold uppercase tracking-wide text-brand-navy"
-                >
-                  Start your project
-                </Link>
-                <a
-                  href={site.calendly}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-12 items-center rounded-sm border border-white/35 px-5 text-sm font-heading font-bold uppercase tracking-wide"
-                >
-                  Book consult
-                </a>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <div className="rounded-[2px] border border-white/12 bg-white/[0.04] p-8 backdrop-blur-sm md:p-10">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-bronze">
+                  Next step
+                </p>
+                <p className="mt-4 font-display text-3xl leading-snug text-parchment md:text-4xl">
+                  Request a project estimate or book a live consult.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button href="/contact" variant="primary">
+                    Start your project
+                  </Button>
+                  <Button href={site.calendly} variant="ghost" external>
+                    Book consult
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>

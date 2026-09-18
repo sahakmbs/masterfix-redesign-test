@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container, Eyebrow, SectionHeading } from "@/components/Section";
+import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { Reveal } from "@/components/motion/Reveal";
+import { Button } from "@/components/ui/Button";
 import { processSteps, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,82 +14,56 @@ export const metadata: Metadata = {
 export default function HowWeWorkPage() {
   return (
     <>
-      <section className="bg-brand-navy py-20 text-white md:py-28">
+      <section className="bg-ink pb-20 pt-32 text-parchment md:pb-28 md:pt-40">
         <Container>
-          <Eyebrow>Process</Eyebrow>
-          <h1 className="mt-3 max-w-3xl font-heading text-4xl font-black uppercase tracking-tight md:text-6xl">
-            From feasibility to closeout
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/75">
-            A clear path so scopes stay honest, permits get handled, and punch lists actually
-            close.
-          </p>
+          <Reveal>
+            <Eyebrow light>Process</Eyebrow>
+            <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+              From feasibility to closeout
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-parchment/70">
+              A clear path so scopes stay honest, permits get handled, and punch lists actually
+              close — built for King County schedules and PNW weather windows.
+            </p>
+          </Reveal>
         </Container>
       </section>
 
-      <section className="bg-white py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
-          <ol className="space-y-10">
-            {processSteps.map((step, i) => (
-              <li
-                key={step.step}
-                className="grid gap-6 border-b border-brand-navy/10 pb-10 last:border-0 md:grid-cols-12"
-              >
-                <div className="md:col-span-2">
-                  <span className="font-heading text-4xl font-black text-brand-amber">
-                    {step.step}
-                  </span>
-                </div>
-                <div className="md:col-span-10">
-                  <h2 className="font-heading text-2xl font-extrabold text-brand-navy md:text-3xl">
-                    {step.title}
-                  </h2>
-                  <p className="mt-4 max-w-3xl text-base leading-relaxed text-brand-slate/80 md:text-lg">
-                    {step.body}
-                  </p>
-                  {i === 0 ? (
-                    <p className="mt-4 max-w-3xl text-sm text-brand-slate/65">
-                      We talk through constraints early — budget bands, access, occupied spaces,
-                      and whether architecture or engineering is required — before anyone draws
-                      a line that locks cost.
-                    </p>
-                  ) : null}
-                  {i === 1 ? (
-                    <p className="mt-4 max-w-3xl text-sm text-brand-slate/65">
-                      When permits apply, we coordinate architectural and specialty approvals so
-                      construction is not waiting on paperwork midway.
-                    </p>
-                  ) : null}
-                </div>
-              </li>
+          <ProcessTimeline />
+          <div className="mt-16 space-y-8 border-t border-ink/10 pt-12">
+            {processSteps.slice(0, 2).map((step, i) => (
+              <Reveal key={step.step}>
+                <p className="max-w-3xl text-sm leading-relaxed text-charcoal/60">
+                  <span className="font-semibold text-ink">{step.title}. </span>
+                  {i === 0
+                    ? "We talk through constraints early — budget bands, access, occupied spaces, and whether architecture or engineering is required — before anyone draws a line that locks cost."
+                    : "When permits apply, we coordinate architectural and specialty approvals so construction is not waiting on paperwork midway."}
+                </p>
+              </Reveal>
             ))}
-          </ol>
+          </div>
         </Container>
       </section>
 
-      <section className="bg-brand-light py-16 md:py-20">
+      <section className="bg-parchment py-16 md:py-24">
         <Container>
-          <SectionHeading
-            eyebrow="Cost clarity"
-            title="Estimates that mean something"
-            body="Website and phone estimates are informational. Formal work starts with a mutually executed contract after on-site feasibility. We document assumptions so surprises are rare — and when conditions change, we say so early."
-          />
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="inline-flex min-h-12 items-center rounded-sm bg-brand-navy px-6 text-sm font-heading font-bold uppercase tracking-wide text-white"
-            >
+          <Reveal>
+            <SectionHeading
+              eyebrow="Cost clarity"
+              title="Estimates that mean something"
+              body="Website and phone estimates are informational. Formal work starts with a mutually executed contract after on-site feasibility. We document assumptions so surprises are rare — and when conditions change, we say so early."
+            />
+          </Reveal>
+          <Reveal className="mt-10 flex flex-wrap gap-3" delay={0.1}>
+            <Button href="/contact" variant="primary" className="!bg-ink !text-parchment">
               Request an estimate
-            </Link>
-            <a
-              href={site.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center rounded-sm border border-brand-navy/20 px-6 text-sm font-heading font-bold uppercase tracking-wide text-brand-navy"
-            >
+            </Button>
+            <Button href={site.calendly} variant="secondary" external>
               Book a consultation
-            </a>
-          </div>
+            </Button>
+          </Reveal>
         </Container>
       </section>
     </>

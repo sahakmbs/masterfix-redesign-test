@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { site } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
   display: "swap",
 });
 
-const montserrat = Montserrat({
+const instrument = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-instrument",
   display: "swap",
-  weight: ["600", "700", "800", "900"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -43,11 +44,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${montserrat.variable} bg-brand-light font-sans text-brand-slate antialiased`}
+        className={`${inter.variable} ${instrument.variable} grain bg-parchment font-sans text-charcoal antialiased`}
       >
         <LocalBusinessJsonLd />
         <Header />
-        <main className="pb-mobile-cta">{children}</main>
+        <main className="pb-mobile-cta">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
         <StickyMobileCta />
       </body>
